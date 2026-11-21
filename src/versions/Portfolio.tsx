@@ -68,12 +68,11 @@ export default function Portfolio() {
           <h2>Energi, närvaro och precision på scen</h2>
           <p>
             Driven, mångsidig och alltid med hjärtat på scenen. Klara rör sig
-            sömlöst mellan fysisk komedi, storslagna karaktärer och musikalisk precision.
+            sömlöst mellan komedi, storslagna karaktärer och musikalisk precision.
           </p>
           <p>
-            Oavsett om hon gestaltar en excentrisk drottning, kastar sig in i ett
-            fartfyllt äventyr eller bär en klassisk musikalproduktion, levererar
-            hon 100 % energi och värme.
+            Oavsett vad hon gestaltar kastar hon sig in 100% och levererar
+            alltid med energi och värme.
           </p>
           <dl>
             <div><dt>Röstläge</dt><dd> - </dd></div>

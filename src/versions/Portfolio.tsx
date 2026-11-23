@@ -1,10 +1,12 @@
 import {
   ArrowUpRight,
+  ChevronDown,
   Download,
   Mail,
   Play,
   Star,
 } from 'lucide-react'
+import { useState } from 'react'
 import './Portfolio.css'
 
 const portraits = [
@@ -18,7 +20,78 @@ const portraits = [
   { src: '/pictures/IMG_20261120_155832.png', title: 'Porträtt' },
 ]
 
+const experienceCategories = [
+  {
+    title: 'Musikal',
+    items: [
+      { time: '2025', title: 'Hair', detail: 'Löftadalens folkhögskola' },
+      { time: '2023', title: '”Fearless” ur Mean Girls the Musical', detail: 'Sommarkurs i musikal på Institute of the Arts Barcelona' },
+      { time: '2021', title: 'Alice i Underlandet', detail: 'Östra Real Gymnasium · Spelade Hjärter dam' },
+      { time: '2012–2014', title: 'En Midsommarnattsdröm', detail: 'Showstoppers i USA · Spelade Helena' },
+      { time: '2012–2014', title: 'Snövit', detail: 'Showstoppers i USA · Spelade häxan' },
+    ],
+  },
+  {
+    title: 'Sång',
+    items: [
+      { time: '2025–pågående', title: 'Sångstudier', detail: 'Stockholms Musikalartistutbildning' },
+      { time: '2024–2025', title: 'Sång och ensemble', detail: 'Löftadalens folkhögskola · Kör och frivillig acapellagrupp' },
+      { time: '2014–2021', title: 'Sånglektioner', detail: 'Kulturskolan Stockholm · Privata sånglektioner i USA' },
+      { time: 'Genom åren', title: 'Solo, kör och ensemble', detail: 'Solo-sång på uppvisningar · Kör i högstadiet, kyrkokör, gymnasiet och på Löftadalens folkhögskola · Sångare i ensemble i gymnasiet, högstadiet och på fest' },
+    ],
+  },
+  {
+    title: 'Teater',
+    items: [
+      { time: '2025–pågående', title: 'Stockholms Musikalartistutbildning', detail: 'Improvisation, scener, monologarbete, duettarbete, röstarbete' },
+      { time: '2024–2025', title: 'Löftadalens folkhögskola', detail: 'Improvisation, monologarbete, karaktärsarbete, röstarbete, rörelsearbete' },
+      { time: '2023', title: 'Katrinebergs folkhögskola', detail: 'Filmkurs i filmskådespeleri' },
+      { time: '2014–2021', title: 'Kulturskolan Stockholm', detail: 'Improvisation, pjäser, karaktärsarbete, röstarbete, rörelsearbete' },
+      { time: 'Pjäsproduktioner', title: 'Scenframträdanden', detail: 'Grease · Lejonkungen · Best in Show · Alice i Underlandet' },
+    ],
+  },
+  {
+    title: 'Dans',
+    items: [
+      { time: '2025–pågående', title: 'Stepp', detail: 'Löftadalens folkhögskola · Stockholms Musikalartistutbildning' },
+      { time: '2024–pågående', title: 'Street', detail: 'Löftadalens folkhögskola · Stockholms Musikalartistutbildning · Andra strökurser' },
+      { time: '2024–2025', title: 'Modern', detail: 'Löftadalens folkhögskola' },
+      { time: '2021–2024', title: 'Jazz och balett', detail: 'Style Dance Studio i Lund' },
+      { time: '2014–2021', title: 'Balett, jazz och modern', detail: 'Kulturskolan Stockholm · Dance Unlimited i USA' },
+    ],
+  },
+  {
+    title: 'Show och evenemang',
+    items: [
+      { time: 'Säsongsarbete', title: 'Showartist', detail: 'First Camp Orsa · Show Concept' },
+      { time: 'Halloween', title: 'Mingelartist på Kolmården', detail: 'Olika karaktärer' },
+      { time: 'Jul', title: 'Ballerina i julparad', detail: 'Mall of Scandinavia · Vis-productions' },
+      { time: 'Genom åren', title: 'Dansuppvisningar', detail: 'Balett, jazz, modern, contemporary jazz och stepp' },
+    ],
+  },
+  {
+    title: 'Utbildning och andra erfarenheter',
+    items: [
+      { time: '2025–pågående', title: 'Stockholms Musikalartistutbildning', detail: 'Musikal, sång, teater och dans' },
+      { time: '2024–2025', title: 'Musikallinjen', detail: 'Löftadalens folkhögskola' },
+      { time: '2023', title: 'Sommarkurs i musikal', detail: 'Institute of the Arts Barcelona' },
+      { time: 'Två år', title: 'Piano och grundläggande gitarr', detail: 'Pianolektioner, musikteori och gymnasiet har utvecklat min musikaliska förmåga och förståelse' },
+      { time: '8 år', title: 'Fotboll', detail: 'Har utvecklat disciplin och teamwork' },
+    ],
+  },
+] as const
+
 export default function Portfolio() {
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
+  const [playVideo, setPlayVideo] = useState(false)
+
+  const toggleCategory = (title: string) => {
+    setExpandedCategories((current) => ({
+      ...current,
+      [title]: !current[title],
+    }))
+  }
+
   return (
     <main className="page">
       <header className="header">
@@ -44,12 +117,11 @@ export default function Portfolio() {
           <p className="tag"><Star size={16} /> Musikalartist • Stockholm</p>
           <h1>Klara <em>Thuresson</em></h1>
           <p className="lede">
-            Hårt arbetande, kreativ och träffsäker. Från storslagna musikalscener
-            och komedi till färgstarka karaktärsroller.
+            Närvaro, driv och helhjärtat engagemang.
           </p>
           <div className="actions">
             <a className="primary" href="#media"><Play size={18} fill="currentColor" /> Se showreel</a>
-            <a className="secondary" href="#cv"><Download size={18} /> Ladda ner CV</a>
+            <a className="secondary" href="/Klara%20CV%20-%20Portfolio.pdf" download="Klara-CV.pdf"><Download size={18} /> Ladda ner CV</a>
           </div>
         </div>
         <img
@@ -65,14 +137,20 @@ export default function Portfolio() {
         </div>
         <div className="about-copy">
           <p className="section-label">Om Klara</p>
-          <h2>Energi, närvaro och precision på scen</h2>
-          <p>
-            Driven, mångsidig och alltid med hjärtat på scenen. Klara rör sig
-            sömlöst mellan komedi, storslagna karaktärer och musikalisk precision.
+          <h2>
+            <span>Det finns lägen för good enough,</span>
+            <span><mark>och så finns det scenen</mark>.</span>
+          </h2>
+          <p> 
+            Jag gillar när det bränner till. När man kastar sig ut, släpper allt annat och bara kör. På scenen handlar det om att äga rummet, hålla skärpan när det svänger och ge hundra procent – utan att krångla till det.
           </p>
+          <br/>
           <p>
-            Oavsett vad hon gestaltar kastar hon sig in 100% och levererar
-            alltid med energi och värme.
+            Jag är den som alltid vill att alla runtomkring ska må bra, men när ridån går upp finns det ingen tvekan. Jag tar i, tar plats och gör jobbet.
+          </p>
+          <br/>
+          <p>
+            Enkel att jobba med, <mark>omöjlig att missa</mark>, och alltid med glimten i ögat.
           </p>
           <dl>
             <div><dt>Röstläge</dt><dd> - </dd></div>
@@ -81,55 +159,91 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section className="media" id="media">
-        <h2>Rörligt material</h2>
+     <section className="media" id="media">
+      <h2>Rörligt &amp; Ljud</h2>
 
-        <div className="soundcloud-grid">
-          <div className="soundcloud-player">
-            <iframe
-              title="Klara Thuresson – When the Clouds are Crying"
-              width="100%"
-              height="180"
-              scrolling="no"
-              frameBorder="0"
-              allow="autoplay"
-              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A822834217&color=%23ed9ca8&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-            />
-            <div className="soundcloud-credit">
-              <a href="https://soundcloud.com/klara-thuresson" title="Klara Thuresson" target="_blank" rel="noopener noreferrer">
-                Klara Thuresson
-              </a>
-              <span> · </span>
-              <a href="https://soundcloud.com/klara-thuresson/when-the-clouds-are-crying" title="When the Clouds are Crying" target="_blank" rel="noopener noreferrer">
-                When the Clouds are Crying
-              </a>
-            </div>
-          </div>
-
-          <a
-            className="youtube-player youtube-placeholder"
-            href="https://youtu.be/Qw-1IIWYjfM?t=2183"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Öppna gymnasie-musikalen på YouTube från 36:23"
-          >
-            <span className="youtube-thumbnail" role="img" aria-label="Förhandsbild från gymnasie-musikalen">
-              <img
-                src="https://img.youtube.com/vi/Qw-1IIWYjfM/hqdefault.jpg"
-                alt=""
-              />
-              <span className="youtube-play"><Play size={24} fill="currentColor" /></span>
-              <span className="youtube-time">36:23</span>
-            </span>
-            <span className="youtube-credit">
-              <small>Gymnasiet · musikal</small>
-              <span>
-                Öppna på YouTube <ArrowUpRight size={14} />
+      <div className="soundcloud-grid">
+        {/* 1. YouTube – Spelar direkt på sidan från 36:23 (start=2183) */}
+        <div className="youtube-player">
+          {!playVideo ? (
+            <button
+              type="button"
+              onClick={() => setPlayVideo(true)}
+              className="youtube-placeholder"
+              aria-label="Spela gymnasie-musikalen från 36:23"
+            >
+              <span className="youtube-thumbnail">
+                <img
+                  src="https://img.youtube.com/vi/Qw-1IIWYjfM/hqdefault.jpg"
+                  alt="Förhandsbild från gymnasie-musikalen"
+                />
+                <span className="youtube-play">
+                  <Play size={24} fill="currentColor" />
+                </span>
+                <span className="youtube-time">36:23</span>
               </span>
-            </span>
-          </a>
+              <span className="youtube-credit">
+                <small>Gymnasiet · Musikal</small>
+                <span>Spela klipp (36:23)</span>
+              </span>
+            </button>
+          ) : (
+            <div className="youtube-embed-wrapper">
+              <iframe
+                width="100%"
+                height="240"
+                src={`https://www.youtube-nocookie.com/embed/Qw-1IIWYjfM?start=2183&autoplay=1&rel=0&origin=${encodeURIComponent(window.location.origin)}`}
+                title="Klara Thuresson – Musikal"
+                frameBorder="0"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              <div className="youtube-credit">
+                <small>Gymnasiet · Musikal</small>
+                <a
+                  href="https://youtu.be/Qw-1IIWYjfM?t=2183"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Öppna på YouTube <ArrowUpRight size={14} />
+                </a>
+              </div>
+            </div>
+          )}
         </div>
-      </section>
+
+        {/* 2. SoundCloud – Slimmad vågform utan kommentarer och stora omslag */}
+        <div className="soundcloud-player">
+          <iframe
+            title="Klara Thuresson – When the Clouds are Crying"
+            width="100%"
+            height="120"
+            scrolling="no"
+            frameBorder="0"
+            allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/822834217&color=%23ed9ca8&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"
+          />
+          <div className="soundcloud-credit">
+            <a
+              href="https://soundcloud.com/klara-thuresson"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Klara Thuresson
+            </a>
+            <span> · </span>
+            <a
+              href="https://soundcloud.com/klara-thuresson/when-the-clouds-are-crying"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              When the Clouds are Crying
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
       <section className="gallery" id="gallery">
         <div className="gallery-heading">
@@ -137,7 +251,6 @@ export default function Portfolio() {
             <p className="section-label">Visuell portfolio</p>
             <h2>Bildgalleri</h2>
           </div>
-          <span>{portraits.length} uttryck</span>
         </div>
         <div className="grid">
           {portraits.map((portrait, index) => (
@@ -156,46 +269,51 @@ export default function Portfolio() {
       </section>
 
       <section className="cv" id="cv">
-        <div className="cv-placeholder" aria-label="CV kommer snart">
-          <div className="cv-placeholder-stripes" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-          <p className="section-label">CV & meriter</p>
-          <h2>Kommer snart</h2>
-          <p>Utbildning, roller och meriter fylls på här.</p>
-        </div>
-
-        {/*
         <div className="cv-heading">
           <div>
             <p className="section-label">Meriter</p>
             <h2>Utbildning & erfarenhet</h2>
           </div>
-          <a href="#download-cv"><Download size={14} /> Ladda ner PDF-CV</a>
+          <a href="/Klara%20CV%20-%20Portfolio.pdf" download="Klara-CV.pdf"><Download size={14} /> Ladda ner PDF-CV</a>
         </div>
         <div className="timeline">
-          <div>
-            <p className="section-label">Utvalda roller / scen</p>
-            <article><time>2025</time><h3>Queen of Hearts</h3><p>Ensemble / karaktär · Alice i Underlandet</p></article>
-            <article><time>2024</time><h3>[Musikal / showproduktion]</h3><p>Teater / arena · [Rollnamn]</p></article>
-          </div>
-          <div>
-            <p className="section-label">Utbildning</p>
-            <article><time>2021–2024</time><h3>[Musikalartistprogrammet]</h3><p>[Skola] · Stockholm / Göteborg</p></article>
-          </div>
+          {experienceCategories.map((category) => {
+            const isExpanded = Boolean(expandedCategories[category.title])
+            const visibleItems = isExpanded ? category.items : category.items.slice(0, 3)
+
+            return (
+              <div key={category.title}>
+                <p className="section-label">{category.title}</p>
+                {visibleItems.map((item) => (
+                  <article key={`${category.title}-${item.title}`}>
+                    <time>{item.time}</time>
+                    <h3>{item.title}</h3>
+                    <p>{item.detail}</p>
+                  </article>
+                ))}
+                {category.items.length > 3 && (
+                  <button
+                    className="timeline-toggle"
+                    type="button"
+                    aria-expanded={isExpanded}
+                    onClick={() => toggleCategory(category.title)}
+                  >
+                    {isExpanded ? 'Visa mindre' : 'Visa fler'}
+                    <ChevronDown size={14} aria-hidden="true" />
+                  </button>
+                )}
+              </div>
+            )
+          })}
         </div>
-        */}
       </section>
 
       <section className="contact" id="contact">
         <p className="section-label">Hör av dig</p>
-        <h2>Letar du efter din nästa artist?</h2>
-        <p>Bokningar, auditions, samarbeten eller frågor — hör av dig direkt.</p>
+        <h2>Vi borde ses i studion eller på scenen.</h2>
+        <p>Hör av dig direkt så löser vi det.</p>
         <div className="contact-actions">
-          <a href="mailto:klara.p.thuresson@gmail.com"><Mail size={18} /> klara.p.thuresson@gmail.com</a>
+          <a href="mailto:klara.thuresson@yahoo.com"><Mail size={18} /> klara.thuresson@yahoo.com</a>
           <a href="https://www.instagram.com/singing_klara?dmpr=OXQ4dnQ0d2J2c28w" target="_blank" rel="noopener noreferrer">
             @singing_klara <ArrowUpRight size={14} />
           </a>

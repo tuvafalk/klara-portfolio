@@ -11,6 +11,10 @@ function App() {
 		}
 	}, [])
 
+	useEffect(() => {
+		document.title = "Klara Thuresson — Musikalartist";
+	}, []);
+
 	return <Portfolio />
 }
 

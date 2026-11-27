@@ -321,10 +321,12 @@ export default function Portfolio() {
       </section>
       <section className="gallery">
         <footer className="footer">
-          © {new Date().getFullYear()} Klara · Alla rättigheter förbehållna
+          <span> © {new Date().getFullYear()} Klara </span>
+          <a href="https://tuvafalk.se" target="_blank" rel="noreferrer">
+            Site by Tuva Falk
+          </a>
         </footer>
       </section>
-
     </main>
   )
 }
